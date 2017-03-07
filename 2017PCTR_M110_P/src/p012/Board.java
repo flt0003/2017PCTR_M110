@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 
 
 @SuppressWarnings("serial")
+/**
+ * No hemos modificado esta clase, así que la dejamos como está.
+ */
 public class Board extends JPanel {
 
 	private Ball aBalls[];

@@ -13,31 +13,42 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.List;
-
+/**
+ * Clase del billar.
+ * @author Félix Laguna Teno
+ * @author Jesús Carro Tomé
+ */
 @SuppressWarnings("serial")
 public class Billiards extends JFrame {
 
 	public static int Width = 800;
 	public static int Height = 600;
+	/**
+	 * Bandera para indicar si hay procesos ejecutandose o no.
+	 */
 	private boolean exBall;
 	private JButton b_start, b_stop;
 
 	private Board board;
+	/**
+	 * Lista de hilos.
+	 */
 	private List<Thread> hilos;
-
-	// TODO update with number of group label. See practice statement.
 	private final int N_BALL = 13;
 	private Ball[] balls;
-
+	/**
+	 * Constructor
+	 */
 	public Billiards() {
-		System.out.println(System.getProperty("user.dir"));
 		exBall=false;
 		board = new Board();
 		board.setForeground(new Color(0, 128, 0));
 		board.setBackground(new Color(0, 128, 0));
 
 		initBalls();
-		//inicializarHilos();
+		/**
+		 * Inicializamos el hilo pintor al principio.
+		 */
 		Thread t=new PainterThread(board);
 		t.setName("Pintor");
 		t.start();
@@ -62,20 +73,23 @@ public class Billiards extends JFrame {
 		setResizable(false);
 		setVisible(true);
 	}
-
+	/**
+	 * Inicializa los objetos pasivos bolas.
+	 */
 	private void initBalls() {
 		balls=new Ball[N_BALL];
-		//balls=new Ball[1];
-		// TODO init balls
 		for(int i=0;i < N_BALL;i++){
-		//for(int i=0;i < 1;i++){
 			Ball bola = new Ball();
 			balls[i] = bola;
 		}
 		board.setBalls(balls);
 	}
-
+	
 	private class StartListener implements ActionListener {
+		/**
+		 * Acción al pulsar el botón empezar.
+		 * Inicia los hilos solo si no están funcionando.
+		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			if (!exBall){
@@ -86,6 +100,10 @@ public class Billiards extends JFrame {
 			}
 		}
 	}
+	/**
+	 * Crea los hilos necesarios para la ejecución.
+	 * También les pone un nombre descriptivo.
+	 */
 	private synchronized void inicializarHilos(){
 		exBall=true;
 		int contador=0;
@@ -99,6 +117,10 @@ public class Billiards extends JFrame {
 	}
 
 	private class StopListener implements ActionListener {
+		/**
+		 * Acción al pulsar el botón de parar.
+		 * Pone la bandera en false, y va interrumpiendo los hilos.
+		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			exBall=false;
