@@ -4,6 +4,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -54,9 +55,15 @@ public class Billiards extends JFrame {
 		setVisible(true);
 	}
 
-	private void initBalls() {
-		// TODO init balls
-	}
+		private void initBalls() {
+			balls=new Ball[N_BALL];
+			// TODO init balls
+			for(int i=0;i < N_BALL;i++){
+				Ball bola = new Ball();
+				balls[i] = bola;
+			}
+			board.setBalls(balls);
+		}
 
 	private class StartListener implements ActionListener {
 		@Override
