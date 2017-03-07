@@ -2,10 +2,8 @@ package p012;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
-
 //TODO Transform the code to be used safely in a concurrent context.  
 public class Ball {
-       //TODO  Find an archive named Ball.png 
 	private String Ball = "../../media/Ball.png"; 
 
 	private double x,y,dx,dy;
@@ -19,9 +17,16 @@ public class Ball {
 		y = Billiards.Height/2-16;
 		v = 5;
 		fi =  Math.random() * Math.PI * 2;
+		if (!invariantes()){
+			System.out.println("Violaciï¿½n del invariante en la construcciï¿½n");
+			System.out.println("Usando valores por defecto");
+			x = Billiards.Width/4-16;
+			y = Billiards.Height/2-16;
+			v = 5;
+			fi =  Math.random() * Math.PI * 2;
+		}
 	}
-
-	public void move() {
+	public synchronized void move() {
 		invariantes();
 		reflect();
 		v = v*Math.exp(-v/1000);
@@ -34,20 +39,20 @@ public class Ball {
 		x += dx;   
 		y += dy;
 		invariantes();
-		//TODO Check postcondition
+		
 	}
-	private synchronized void invariantes(){
+	private synchronized boolean invariantes(){
 		boolean res=false;
 		res=(x>=Board.LEFTBOARD && x+110<Board.RIGHTBOARD &&
 				y>=Board.TOPBOARD && y+110<Board.BOTTOMBOARD);
 		assert res;
+		return res;
 	}
-
-	public void reflect() {
-		if (Math.abs(x + 110 - Board.RIGHTBOARD) <  Math.abs(dx)) {
+	public synchronized void reflect() {
+		if (Math.abs(x  +110- Board.RIGHTBOARD) <  Math.abs(dx)) {
 			fi = Math.PI - fi;
 		}
-		if (Math.abs(y + 110 - Board.BOTTOMBOARD) <  Math.abs(dy)) {
+		if (Math.abs(y +110 - Board.BOTTOMBOARD) <  Math.abs(dy)) {
 			fi = - fi;
 		}
 		if (Math.abs(x - Board.LEFTBOARD) <  Math.abs(dx)) {
@@ -56,15 +61,13 @@ public class Ball {
 		if (Math.abs(y - Board.TOPBOARD) <  Math.abs(dy)) {
 			fi = - fi;
 		}
-		invariantes();
-		//TODO Check postcondition	
 	}
 
-	public int getX() {
+	public synchronized int getX() {
 		return (int)x;
 	}
 	
-	public int getY() {
+	public synchronized int getY() {
 		return (int)y;
 	}
 	
@@ -89,4 +92,6 @@ public class Ball {
 	}
 
 }
+
+
 
