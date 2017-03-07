@@ -22,7 +22,7 @@ public class Board extends JPanel {
 		setBackground(Color.BLACK);
 		setDoubleBuffered(true);
 	}
-
+	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
 

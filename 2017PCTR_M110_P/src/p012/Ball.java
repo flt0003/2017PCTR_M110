@@ -4,21 +4,21 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 //TODO Transform the code to be used safely in a concurrent context.  
 public class Ball {
-	private String Ball = "../../media/Ball.png"; 
+	private String Ball = "media/Ball.png"; 
 
 	private double x,y,dx,dy;
 	private double v,fi;
 	private Image image;
 
 	public Ball() {
-		ImageIcon ii = new ImageIcon(this.getClass().getResource(Ball));
+		ImageIcon ii = new ImageIcon(Ball);
 		image = ii.getImage();
 		x = Billiards.Width/4-16;
 		y = Billiards.Height/2-16;
 		v = 5;
 		fi =  Math.random() * Math.PI * 2;
 		if (!invariantes()){
-			System.out.println("Violaciï¿½n del invariante en la construcciï¿½n");
+			System.out.println("Violaci�n del invariante en la construcci�n");
 			System.out.println("Usando valores por defecto");
 			x = Billiards.Width/4-16;
 			y = Billiards.Height/2-16;
@@ -92,6 +92,4 @@ public class Ball {
 	}
 
 }
-
-
 

@@ -1,6 +1,5 @@
 package p012;
 
-
 public class PainterThread extends Thread {
 	private final Board b;
 	public PainterThread(Board b){

@@ -1,7 +1,5 @@
 package p012;
 
-
-
 public class BallThread extends Thread{
 	private final Ball bola;
 	public BallThread(Ball bola){
@@ -18,4 +16,3 @@ public class BallThread extends Thread{
 		}
 	}
 }
-
