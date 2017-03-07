@@ -2,6 +2,7 @@ package p012;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
+
 //TODO Transform the code to be used safely in a concurrent context.  
 public class Ball {
        //TODO  Find an archive named Ball.png 
@@ -21,6 +22,8 @@ public class Ball {
 	}
 
 	public void move() {
+		invariantes();
+		reflect();
 		v = v*Math.exp(-v/1000);
 		dx = v*Math.cos(fi);
 		dy = v*Math.sin(fi);
@@ -30,14 +33,21 @@ public class Ball {
 		}
 		x += dx;   
 		y += dy;
+		invariantes();
 		//TODO Check postcondition
+	}
+	private synchronized void invariantes(){
+		boolean res=false;
+		res=(x>=Board.LEFTBOARD && x+110<Board.RIGHTBOARD &&
+				y>=Board.TOPBOARD && y+110<Board.BOTTOMBOARD);
+		assert res;
 	}
 
 	public void reflect() {
-		if (Math.abs(x + 32 - Board.RIGHTBOARD) <  Math.abs(dx)) {
+		if (Math.abs(x + 110 - Board.RIGHTBOARD) <  Math.abs(dx)) {
 			fi = Math.PI - fi;
 		}
-		if (Math.abs(y + 32 - Board.BOTTOMBOARD) <  Math.abs(dy)) {
+		if (Math.abs(y + 110 - Board.BOTTOMBOARD) <  Math.abs(dy)) {
 			fi = - fi;
 		}
 		if (Math.abs(x - Board.LEFTBOARD) <  Math.abs(dx)) {
@@ -46,6 +56,7 @@ public class Ball {
 		if (Math.abs(y - Board.TOPBOARD) <  Math.abs(dy)) {
 			fi = - fi;
 		}
+		invariantes();
 		//TODO Check postcondition	
 	}
 
