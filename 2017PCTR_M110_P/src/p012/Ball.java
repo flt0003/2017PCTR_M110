@@ -1,8 +1,6 @@
 package p012;
 
 import java.awt.Image;
-import java.io.File;
-
 import javax.swing.ImageIcon; 
 /**
  * Clase que representa una bola.
