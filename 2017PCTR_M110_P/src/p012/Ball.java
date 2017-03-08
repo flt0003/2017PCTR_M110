@@ -1,6 +1,8 @@
 package p012;
 
 import java.awt.Image;
+import java.io.File;
+
 import javax.swing.ImageIcon; 
 /**
  * Clase que representa una bola.
@@ -32,7 +34,11 @@ public class Ball {
 	 * Constructor.
 	 */
 	public Ball() {
-		ImageIcon ii = new ImageIcon(Ball);
+		java.net.URL imageURL = Ball.class.getResource(Ball);
+		
+		//System.out.println(imageURL.toString());
+		ImageIcon ii = new ImageIcon(imageURL);
+		//System.out.println(ii.toString());
 		image = ii.getImage();
 		x = Billiards.Width/4-16;
 		y = Billiards.Height/2-16;
