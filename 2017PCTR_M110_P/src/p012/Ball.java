@@ -15,7 +15,7 @@ public class Ball {
 	/**
 	 * Cadena de localización de la imagen, media tiene que ser un source folder.
 	 */
-	private String Ball = "media/Ball.png"; 
+	private String Ball = "/Ball.png"; 
 	/**
 	 * Variables para la posición.
 	 */
