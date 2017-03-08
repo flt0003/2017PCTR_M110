@@ -77,6 +77,10 @@ public class Ball {
 		res=(x>=Board.LEFTBOARD && x+110<Board.RIGHTBOARD &&
 				y>=Board.TOPBOARD && y+110<Board.BOTTOMBOARD);
 		assert res;
+		//Por si no están activadas las aserciones.
+		if (!res){
+			System.out.println("Violación invariante");
+		}
 	}
 	/**
 	 * Función para realizar la reflexión.
